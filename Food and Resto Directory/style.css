@@ -23,7 +23,7 @@
 }
 
 body {
-    font-family: 'TAN nimbus', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: var(--color-background);
     color: var(--color-text-dark);
     line-height: 1.6;
@@ -510,5 +510,4 @@ footer {
     .home-banner h2 {
         font-size: 2em;
     }
-
 }
