@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hubungi Kami | Laksa-na Resto</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="main-header">
+        <h1 class="logo">LAKSA-NA</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="directory.html">Direktori Menu</a>
+            <a href="articles.html">Kuliner Asia</a>
+            <a href="about.html">Tentang</a>
+            <a href="contact.html" class="active">Kontak</a>
+        </nav>
+    </header>
+
+    <main class="static-page-content">
+        <section class="contact-section">
+            <h2>Hubungi LAKSA-NA</h2>
+            <p style="text-align: center; margin-bottom: 25px;">Tertarik reservasi meja, memesan katering, atau ingin berbagi kesan tentang Laksa favorit Anda? Sampaikan pesan Anda di sini!</p>
+
+            <form action="#" method="POST" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Nama Lengkap:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subjek Pesan:</label>
+                    <select id="subject" name="subject">
+                        <option value="reservasi">Reservasi Meja</option>
+                        <option value="catering">Pemesanan Katering Laksa</option>
+                        <option value="saran">Saran & Masukan Menu</option>
+                        <option value="lain">Lain-lain</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Pesan Anda:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Kirim Pesan</button>
+            </form>
+
+            <div class="map-placeholder" style="margin-top: 40px; border: 2px solid var(--color-primary);">
+                [Placeholder Peta Lokasi Fisik Laksa-na Resto]
+            </div>
+        </section>
+    </main>
+
+    <footer>
+     <p>&copy; 2025 <strong>Laksa-Na Resto</strong>.</p>
+    </footer>
+</body>
+</html>
