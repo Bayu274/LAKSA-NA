@@ -27,6 +27,22 @@ body {
     background-color: var(--color-background);
     color: var(--color-text-dark);
     line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Buat pola logo miring di latar belakang */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("logo-rotated.png");
+    background-repeat: repeat;
+    background-size: 140px;      /* ukuran logo sedikit besar */
+    background-position: center;
+    opacity: 0.07;               /* transparansi lembut */
+    z-index: -1;
+    pointer-events: none;
 }
 
 h1, h2, h3 {
