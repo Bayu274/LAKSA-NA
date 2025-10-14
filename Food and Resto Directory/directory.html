@@ -134,5 +134,37 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Elemen popup
+        const popup = document.getElementById("orderPopup");
+        const openPopup = document.getElementById("openPopup");
+        const closePopup = document.getElementById("closePopup");
+        const dineInBtn = document.getElementById("dineInBtn");
+        const takeawayBtn = document.getElementById("takeawayBtn");
+
+        // Buka popup
+        openPopup.addEventListener("click", () => {
+            popup.style.display = "flex";
+        });
+
+        // Tutup popup
+        closePopup.addEventListener("click", () => {
+            popup.style.display = "none";
+        });
+
+        window.addEventListener("click", (e) => {
+            if (e.target === popup) popup.style.display = "none";
+        });
+
+        // Arahkan ke halaman kontak dengan parameter otomatis
+        dineInBtn.addEventListener("click", () => {
+            window.location.href = "contact.html?service=reservasi";
+        });
+
+        takeawayBtn.addEventListener("click", () => {
+            window.location.href = "contact.html?service=takeaway";
+        });
+    </script>
+
 </body>
 </html>

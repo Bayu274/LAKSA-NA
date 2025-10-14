@@ -16,10 +16,11 @@
             <h1 class="logo" style="margin-left: 10px; font-size: 24px;">LAKSA-NA</h1>
         </div>
         <nav>
-            <a href="index.html" class="active">Home</a>
+           <a href="index.html">Home</a>
             <a href="directory.html">Direktori Menu</a>
             <a href="articles.html">Kuliner Asia</a>
             <a href="about.html">Tentang</a>
+            <a href="contact.html">Kontak Kami</a>
         </nav>
     </header>
 
@@ -63,7 +64,18 @@
                     <i class="fas fa-pepper-hot" style="color:red;"></i>
                 </p>
                 <p><strong>Harga:</strong> Rp 50.000 (Reguler) / Rp 60.000 (Spesial)</p>
-                <a href="#" class="btn-reservasi">Pesan Sekarang</a>
+                <button class="btn-reservasi" id="openPopup">Pesan Sekarang</button>
+                <div id="orderPopup" class="popup-overlay">
+                    <div class="popup-content">
+                        <button class="close-btn" id="closePopup">&times;</button>
+                        <h3>Pilih Jenis Pemesanan</h3>
+                        <p>Silakan pilih metode pemesanan Anda:</p>
+                        <div class="popup-buttons">
+                            <button id="dineInBtn" class="popup-option dinein">🍽️ Dine-in</button>
+                            <button id="takeawayBtn" class="popup-option takeaway">🥡 Takeaway</button>
+                        </div>
+                    </div>
+                </div>
             </aside>
         </section>
     </main>
@@ -71,6 +83,37 @@
     <footer>
         <p>&copy; 2025 <strong>Laksa-Na Resto</strong>.</p>
     </footer>
+    <script>
+        // Elemen popup
+        const popup = document.getElementById("orderPopup");
+        const openPopup = document.getElementById("openPopup");
+        const closePopup = document.getElementById("closePopup");
+        const dineInBtn = document.getElementById("dineInBtn");
+        const takeawayBtn = document.getElementById("takeawayBtn");
+
+        // Buka popup
+        openPopup.addEventListener("click", () => {
+            popup.style.display = "flex";
+        });
+
+        // Tutup popup
+        closePopup.addEventListener("click", () => {
+            popup.style.display = "none";
+        });
+
+        window.addEventListener("click", (e) => {
+            if (e.target === popup) popup.style.display = "none";
+        });
+
+        // Arahkan ke halaman kontak dengan parameter otomatis
+        dineInBtn.addEventListener("click", () => {
+            window.location.href = "contact.html?service=reservasi";
+        });
+
+        takeawayBtn.addEventListener("click", () => {
+            window.location.href = "contact.html?service=takeaway";
+        });
+    </script>
 
 </body>
 </html>

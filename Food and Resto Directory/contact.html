@@ -4,8 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hubungi Kami | Laksa-na Resto</title>
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Tambahan gaya form dinamis */
+        .map-frame {
+            width: 100%;
+            height: 300px;
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+        }
+
+        .form-group-inline {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .form-group-inline input {
+            flex: 1;
+        }
+    </style>
 </head>
 <body>
     
@@ -26,45 +45,211 @@
     <main class="static-page-content">
         <section class="contact-section">
             <h2>Hubungi LAKSA-NA</h2>
-            <p style="text-align: center; margin-bottom: 25px;">Tertarik reservasi meja, memesan katering, atau ingin berbagi kesan tentang Laksa favorit Anda? Sampaikan pesan Anda di sini!</p>
+            <p style="text-align: center; margin-bottom: 25px;">
+                Tertarik reservasi meja, memesan katering, atau ingin mengambil pesanan Laksa favorit Anda? Sampaikan detailnya di sini!
+            </p>
 
-            <form action="#" method="POST" class="contact-form">
+            <form id="contactForm" action="#" method="POST" class="contact-form" novalidate>
                 <div class="form-group">
                     <label for="name">Nama Lengkap:</label>
                     <input type="text" id="name" name="name" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="phone">Nomor HP:</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9+ ]+" required placeholder="Contoh: +6281234567890">
                 </div>
 
                 <div class="form-group">
-                    <label for="subject">Subjek Pesan:</label>
-                    <select id="subject" name="subject">
+                    <label for="email">Email (opsional):</label>
+                    <input type="email" id="email" name="email" placeholder="Contoh: nama@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Jenis Layanan:</label>
+                    <select id="subject" name="subject" required>
+                        <option value="" disabled selected>Pilih jenis layanan</option>
                         <option value="reservasi">Reservasi Meja</option>
-                        <option value="catering">Pemesanan Katering Laksa</option>
+                        <option value="catering">Pemesanan Katering</option>
+                        <option value="takeaway">Pesanan Takeaway</option>
                         <option value="saran">Saran & Masukan Menu</option>
                         <option value="lain">Lain-lain</option>
                     </select>
                 </div>
-                
-                <div class="form-group">
-                    <label for="message">Pesan Anda:</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
+
+                <!-- AREA DINAMIS -->
+                <div id="dynamicFields">
+                    <div class="form-group" id="messageField">
+                        <label for="message">Pesan Anda:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
                 </div>
-                
+
                 <button type="submit" class="submit-btn">Kirim Pesan</button>
             </form>
 
-            <div class="map-placeholder" style="margin-top: 40px; border: 2px solid var(--color-primary);">
-                [Placeholder Peta Lokasi Fisik Laksa-na Resto]
+            <div style="margin-top: 40px;">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!4v1760465485032!6m8!1m7!1sGS7N_5guJSojyIBinL_ENg!2m2!1d-7.615337531945964!2d111.064591367421!3f346.48!4f-12.86!5f0.7820865974627469"
+                width="100%"
+                height="300"
+                style="border:2px solid var(--color-primary); border-radius:10px;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
             </div>
         </section>
     </main>
 
     <footer>
-     <p>&copy; 2025 <strong>Laksa-Na Resto</strong>.</p>
+        <p>&copy; 2025 <strong>Laksa-Na Resto</strong>.</p>
     </footer>
+
+    <script>
+        const subjectSelect = document.getElementById("subject");
+        const dynamicFields = document.getElementById("dynamicFields");
+        const form = document.getElementById("contactForm");
+
+        // Fungsi validasi waktu (tidak boleh masa lalu)
+        function validateDateTime(input) {
+            const selected = new Date(input.value);
+            const now = new Date();
+            if (selected < now) {
+                alert("Waktu tidak boleh di masa lalu!");
+                input.value = "";
+                return false;
+            }
+            return true;
+        }
+
+        // Fungsi untuk ubah form dinamis
+        function updateFormFields() {
+            const type = subjectSelect.value;
+            dynamicFields.innerHTML = "";
+
+            // === RESERVASI MEJA ===
+            if (type === "reservasi") {
+                dynamicFields.innerHTML = `
+                    <div class="form-group">
+                        <label for="people">Jumlah Orang:</label>
+                        <input type="number" id="people" name="people" min="1" max="50" required placeholder="Masukkan jumlah orang">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time">Waktu Reservasi:</label>
+                        <input type="datetime-local" id="time" name="time" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menu">Menu Pesanan (Opsional):</label>
+                        <textarea id="menu" name="menu" rows="3" placeholder="Contoh: Laksa Bogor - 2 porsi, Pad Thai - 1 porsi"></textarea>
+                    </div>
+                `;
+                setTimeout(() => {
+                    document.getElementById("time").addEventListener("change", e => validateDateTime(e.target));
+                }, 50);
+
+            // === PEMESANAN KATERING ===
+            } else if (type === "catering") {
+                dynamicFields.innerHTML = `
+                    <div class="form-group">
+                        <label for="menu">Menu Pesanan:</label>
+                        <textarea id="menu" name="menu" rows="3" placeholder="Contoh: Laksa Bogor - 20 porsi, Sate Lilit - 15 porsi" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time">Waktu Pengantaran:</label>
+                        <input type="datetime-local" id="time" name="time" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Alamat Tujuan (Opsional):</label>
+                        <textarea id="address" name="address" rows="3" placeholder="Tuliskan alamat lengkap Anda"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="map">Pilih Titik Antar (Google Maps - Opsional):</label>
+                        <iframe class="map-frame"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.62308923072!2d106.81666631529538!3d-6.175387195524192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e51f5d4a03%3A0x9b6b4b4a9a1e3d3a!2sJakarta%20Pusat!5e0!3m2!1sid!2sid!4v1700000000000"
+                            allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                `;
+                setTimeout(() => {
+                    document.getElementById("time").addEventListener("change", e => validateDateTime(e.target));
+                }, 50);
+
+            // === PESANAN TAKEAWAY ===
+            } else if (type === "takeaway") {
+                dynamicFields.innerHTML = `
+                    <div class="form-group">
+                        <label for="menu">Menu Pesanan:</label>
+                        <textarea id="menu" name="menu" rows="3" placeholder="Contoh: Laksa Bogor - 2 porsi, Sate Lilit - 1 porsi" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time">Waktu Pengambilan:</label>
+                        <input type="datetime-local" id="time" name="time" required>
+                    </div>
+                `;
+                setTimeout(() => {
+                    document.getElementById("time").addEventListener("change", e => validateDateTime(e.target));
+                }, 50);
+
+            // === SARAN & MASUKAN ===
+            } else if (type === "saran") {
+                dynamicFields.innerHTML = `
+                    <div class="form-group">
+                        <label for="message">Saran & Masukan:</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tuliskan saran Anda di sini..." required></textarea>
+                    </div>
+                `;
+
+            // === LAIN-LAIN ===
+            } else {
+                dynamicFields.innerHTML = `
+                    <div class="form-group">
+                        <label for="message">Pesan Anda:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                `;
+            }
+        }
+
+        subjectSelect.addEventListener("change", updateFormFields);
+
+        // Validasi tambahan sebelum submit
+        form.addEventListener("submit", function(e) {
+            const phone = document.getElementById("phone");
+            const people = document.getElementById("people");
+
+            if (phone && !phone.value.trim()) {
+                alert("Nomor HP wajib diisi!");
+                e.preventDefault();
+                return;
+            }
+
+            if (people && (people.value < 1 || people.value > 50)) {
+                alert("Jumlah orang harus antara 1 sampai 50.");
+                e.preventDefault();
+                return;
+            }
+
+            alert("Form berhasil dikirim!");
+        });
+    </script>
+    <script>
+        // Cek parameter ?service=
+        const params = new URLSearchParams(window.location.search);
+        const service = params.get("service");
+        if (service) {
+            const select = document.getElementById("subject");
+            select.value = service;
+            const event = new Event("change");
+            select.dispatchEvent(event);
+            window.scrollTo({ top: 200, behavior: 'smooth' });
+        }
+    </script>
+
 </body>
 </html>
