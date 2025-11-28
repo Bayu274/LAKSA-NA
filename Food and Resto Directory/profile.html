@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pengguna | LAKSA-NA Resto</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+   <header class="main-header">
+        <div class="header-left">
+            <img src="logo.png" alt="Logo LAKSA-NA" width="50" height="50">
+            <h1 class="logo">LAKSA-NA</h1>
+        </div>
+        <div class="header-center">
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="directory.html">Direktori Menu</a>
+                <a href="articles.html">Kuliner Asia</a>
+                <a href="about.html">Tentang</a>
+                <a href="contact.html">Kontak Kami</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </div>
+            <div class="theme-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">Dark Mode</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="profile-container">
+        <section class="profile-header">
+            <div class="profile-avatar">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="profile-info">
+                <h2 id="user-name">Pengguna LAKSA-NA</h2>
+                <p id="user-email">user@laksa-na.com</p>
+                <button id="edit-profile-btn" class="btn-primary">Edit Profil</button>
+            </div>
+        </section>
+
+        <section class="profile-tabs">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="favorites">Favorit</button>
+                <button class="tab-btn" data-tab="history">Riwayat Pemesanan</button>
+                <button class="tab-btn" data-tab="reviews">Ulasan Saya</button>
+                <button class="tab-btn" data-tab="settings">Pengaturan</button>
+            </div>
+
+            <div id="favorites-container" class="tab-content active">
+                <h3>Menu Favorit Anda</h3>
+                <div id="favorites-list" class="favorites-grid">
+                    <!-- Favorites will be loaded here -->
+                </div>
+            </div>
+
+            <div id="history-container" class="tab-content">
+                <h3>Riwayat Pemesanan</h3>
+                <div id="order-history" class="order-history-list">
+                    <!-- Order history will be loaded here -->
+                </div>
+            </div>
+
+            <div id="reviews-container" class="tab-content">
+                <h3>Ulasan Yang Anda Berikan</h3>
+                <div id="user-reviews" class="reviews-list">
+                    <!-- User reviews will be loaded here -->
+                </div>
+            </div>
+
+            <div id="settings-container" class="tab-content">
+                <h3>Pengaturan Akun</h3>
+                <form id="profile-settings" class="settings-form">
+                    <div class="form-group">
+                        <label for="profile-name">Nama:</label>
+                        <input type="text" id="profile-name" value="Pengguna LAKSA-NA">
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-email">Email:</label>
+                        <input type="email" id="profile-email" value="user@laksa-na.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-phone">Telepon:</label>
+                        <input type="tel" id="profile-phone" placeholder="Masukkan nomor telepon">
+                    </div>
+                    <div class="form-group">
+                        <label for="notifications">Notifikasi:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" id="email-notifications" checked> Email</label>
+                            <label><input type="checkbox" id="sms-notifications"> SMS</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">Simpan Perubahan</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 <strong>Laksa-Na Resto</strong>.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Profile page specific functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab switching
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabName = btn.getAttribute('data-tab');
+
+                    // Remove active class from all tabs
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to clicked tab
+                    btn.classList.add('active');
+                    document.getElementById(`${tabName}-container`).classList.add('active');
+                });
+            });
+
+            // Load user data from localStorage
+            const loadUserData = () => {
+                const userData = JSON.parse(localStorage.getItem('userData')) || {
+                    name: 'Pengguna LAKSA-NA',
+                    email: 'user@laksa-na.com',
+                    phone: '',
+                    notifications: { email: true, sms: false }
+                };
+
+                document.getElementById('user-name').textContent = userData.name;
+                document.getElementById('user-email').textContent = userData.email;
+                document.getElementById('profile-name').value = userData.name;
+                document.getElementById('profile-email').value = userData.email;
+                document.getElementById('profile-phone').value = userData.phone || '';
+                document.getElementById('email-notifications').checked = userData.notifications.email;
+                document.getElementById('sms-notifications').checked = userData.notifications.sms;
+            };
+
+            // Save user data
+            const saveUserData = () => {
+                const userData = {
+                    name: document.getElementById('profile-name').value,
+                    email: document.getElementById('profile-email').value,
+                    phone: document.getElementById('profile-phone').value,
+                    notifications: {
+                        email: document.getElementById('email-notifications').checked,
+                        sms: document.getElementById('sms-notifications').checked
+                    }
+                };
+
+                localStorage.setItem('userData', JSON.stringify(userData));
+                loadUserData(); // Refresh display
+                showToast('Profil berhasil diperbarui!', 'success');
+            };
+
+            // Load favorites
+            const loadFavorites = () => {
+                const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+                const favoritesList = document.getElementById('favorites-list');
+
+                if (favorites.length === 0) {
+                    favoritesList.innerHTML = '<p>Anda belum memiliki menu favorit.</p>';
+                    return;
+                }
+
+                // This would need to be customized based on your menu data structure
+                favoritesList.innerHTML = favorites.map(itemId =>
+                    `<div class="favorite-item">
+                        <p>Menu ID: ${itemId}</p>
+                        <button class="remove-favorite" data-item-id="${itemId}">Hapus</button>
+                    </div>`
+                ).join('');
+
+                // Add remove functionality
+                document.querySelectorAll('.remove-favorite').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const itemId = btn.getAttribute('data-item-id');
+                        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+                        favorites = favorites.filter(id => id !== itemId);
+                        localStorage.setItem('favorites', JSON.stringify(favorites));
+                        loadFavorites();
+                    });
+                });
+            };
+
+            // Load order history
+            const loadOrderHistory = () => {
+                const orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+                const historyContainer = document.getElementById('order-history');
+
+                if (orderHistory.length === 0) {
+                    historyContainer.innerHTML = '<p>Anda belum memiliki riwayat pemesanan.</p>';
+                    return;
+                }
+
+                historyContainer.innerHTML = orderHistory.map(order =>
+                    `<div class="order-item">
+                        <h4>Pesanan #${order.id}</h4>
+                        <p>Tanggal: ${order.date}</p>
+                        <p>Total: Rp ${order.total.toLocaleString()}</p>
+                        <p>Status: ${order.status}</p>
+                    </div>`
+                ).join('');
+            };
+
+            // Load user reviews
+            const loadUserReviews = () => {
+                const userReviews = JSON.parse(localStorage.getItem('userReviews')) || [];
+                const reviewsContainer = document.getElementById('user-reviews');
+
+                if (userReviews.length === 0) {
+                    reviewsContainer.innerHTML = '<p>Anda belum memberikan ulasan.</p>';
+                    return;
+                }
+
+                reviewsContainer.innerHTML = userReviews.map(review =>
+                    `<div class="review-item">
+                        <h4>${review.itemName}</h4>
+                        <div class="rating">Rating: ${'⭐'.repeat(review.rating)}</div>
+                        <p>${review.comment}</p>
+                        <small>${review.date}</small>
+                    </div>`
+                ).join('');
+            };
+
+            // Event listeners
+            document.getElementById('profile-settings').addEventListener('submit', (e) => {
+                e.preventDefault();
+                saveUserData();
+            });
+
+            // Initialize
+            loadUserData();
+            loadFavorites();
+            loadOrderHistory();
+            loadUserReviews();
+        });
+    </script>
+</body>
+</html>

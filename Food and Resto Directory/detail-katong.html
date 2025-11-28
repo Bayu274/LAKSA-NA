@@ -48,10 +48,31 @@
                 <span class="rating-stars">⭐⭐⭐⭐⭐</span> (4.8 - Laksa Terfavorit)
             </div>
 
-            <div class="gallery">
-                <img src="laksasg.jpg" alt="Foto Laksa Singapura" class="main-photo">
-                <div class="thumbnail-group">
+            <div id="laksaCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#laksaCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#laksaCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#laksaCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="laksasg.jpg" class="d-block w-100" alt="Foto Laksa Singapura">
                     </div>
+                    <div class="carousel-item">
+                        <img src="laksawiki.jpg" class="d-block w-100" alt="Foto Laksa Wiki">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="laksabogor.jpeg" class="d-block w-100" alt="Foto Laksa Bogor">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#laksaCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#laksaCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </section>
 
@@ -74,13 +95,19 @@
                 <p><strong>Jenis Kuah:</strong> Santan (Curry-based)</p>
                 <p><strong>Tingkat Kepedasan:</strong> Tinggi <i class="fas fa-pepper-hot" style="color:red;"></i><i class="fas fa-pepper-hot" style="color:red;"></i><i class="fas fa-pepper-hot" style="color:red;"></i></p>
                 <p><strong>Harga:</strong> Rp 55.000 (Reguler) / Rp 65.000 (Jumbo)</p>
-                
+
                 <button class="btn-reservasi" id="openPopup">Pesan Sekarang</button>
                 <div id="orderPopup" class="popup-overlay">
                     <div class="popup-content">
                         <button class="close-btn" id="closePopup">&times;</button>
                         <h3>Pilih Jenis Pemesanan</h3>
                         <p>Silakan pilih metode pemesanan Anda:</p>
+                        <div class="quantity-selector">
+                            <label for="quantity">Jumlah:</label>
+                            <button id="decreaseQty">-</button>
+                            <input type="number" id="quantity" value="1" min="1" max="10">
+                            <button id="increaseQty">+</button>
+                        </div>
                         <div class="popup-buttons">
                             <button id="dineInBtn" class="popup-option dinein">🍽️ Dine-in</button>
                             <button id="takeawayBtn" class="popup-option takeaway">🥡 Takeaway</button>
@@ -88,6 +115,41 @@
                     </div>
                 </div>
             </aside>
+        </section>
+
+        <section class="social-sharing-section">
+            <h3>Bagikan Menu Ini</h3>
+            <div class="social-buttons">
+                <button class="social-btn facebook" data-platform="facebook">📘 Facebook</button>
+                <button class="social-btn twitter" data-platform="twitter">🐦 Twitter</button>
+                <button class="social-btn whatsapp" data-platform="whatsapp">💬 WhatsApp</button>
+                <button class="social-btn copy-link" data-platform="copy">🔗 Copy Link</button>
+            </div>
+        </section>
+
+        <section class="reviews-section">
+            <h3>Reviews & Ratings</h3>
+            <div id="reviews-list"></div>
+            <h4>Add Your Review</h4>
+            <form id="review-form">
+                <div class="form-group">
+                    <label for="rating">Rating:</label>
+                    <select id="rating" required>
+                        <option value="">Select Rating</option>
+                        <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+                        <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+                        <option value="3">⭐⭐⭐ (3 Stars)</option>
+                        <option value="2">⭐⭐ (2 Stars)</option>
+                        <option value="1">⭐ (1 Star)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="review-text">Review:</label>
+                    <textarea id="review-text" rows="4" placeholder="Share your experience..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Review</button>
+            </form>
+        </section>
         </section>
     </main>
 

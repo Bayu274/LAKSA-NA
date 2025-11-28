@@ -1,48 +1,49 @@
 # TODO List for Enhancing Food & Resto Directory Website
 
 ## Phase 1: Integrate Frameworks and Libraries
-- [ ] Add Bootstrap CSS and JS to all HTML files
-- [ ] Add jQuery to all HTML files
-- [ ] Update CSS to be compatible with Bootstrap
-- [ ] Test responsiveness improvements
+- [x] Add Bootstrap CSS and JS to all HTML files
+- [x] Add jQuery to all HTML files
+- [x] Update CSS to be compatible with Bootstrap
+- [x] Test responsiveness improvements
 
 ## Phase 2: Add Web Storage Features
 - [x] Implement localStorage for user preferences (theme, favorites)
 - [x] Add favorites/wishlist functionality
 - [x] Add shopping cart with localStorage persistence
-- [ ] Add user review/rating system with localStorage
+- [x] Add user review/rating system with localStorage
 
 ## Phase 3: Enhance Interactivity
 - [x] Add dark mode toggle with localStorage
-- [ ] Implement toast notifications for user feedback
-- [ ] Add image carousels to detail pages
-- [ ] Add quantity selectors to ordering system
-- [ ] Add social sharing buttons
+- [x] Implement toast notifications for user feedback
+- [x] Add image carousels to detail pages
+- [x] Add quantity selectors to ordering system
+- [x] Add social sharing buttons
 
 ## Phase 4: Advanced Directory Features
-- [ ] Add pagination to directory listing
-- [ ] Implement advanced filters (price range, dietary restrictions)
-- [ ] Add location-based search using Geolocation API
-- [ ] Add map integration for restaurant locations
-- [ ] Add search by ingredients
+- [x] Add pagination to directory listing
+- [x] Implement advanced filters (price range, dietary restrictions)
+- [x] Add location-based search using Geolocation API
+- [x] Add map integration for restaurant locations
+- [x] Add search by ingredients
 
 ## Phase 5: UI/UX Improvements
-- [ ] Add loading animations and transitions
-- [ ] Implement smooth scrolling
-- [ ] Add back-to-top button
-- [ ] Enhance mobile experience with better touch interactions
-- [ ] Add accessibility features (ARIA labels, keyboard navigation)
+- [x] Add loading animations and transitions
+- [x] Implement smooth scrolling
+- [x] Add back-to-top button
+- [x] Enhance mobile experience with better touch interactions
+- [x] Add accessibility features (ARIA labels, keyboard navigation)
 
 ## Phase 6: New Pages and Features
-- [ ] Create user profile page (frontend simulation)
-- [ ] Add recipe sharing section
-- [ ] Implement search history
-- [ ] Add newsletter subscription with localStorage
-- [ ] Create FAQ page
+- [x] Create user profile page (frontend simulation)
+- [x] Add recipe sharing section
+- [x] Implement search history
+- [x] Add newsletter subscription with localStorage
+- [x] Create FAQ page
 
 ## Phase 7: Testing and Optimization
-- [ ] Test all features across devices
-- [ ] Optimize images and code
-- [ ] Add error handling for JavaScript
-- [ ] Validate HTML/CSS/JS
-- [ ] Performance optimization
+- [x] Test all features across devices
+- [x] Optimize images and code
+- [x] Add error handling for JavaScript
+- [x] Validate HTML/CSS/JS
+- [x] Performance optimization
+- [x] Fix dark mode toggle reliability across all pages (increased retry count, added fallback listeners)
