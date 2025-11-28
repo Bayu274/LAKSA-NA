@@ -71,14 +71,30 @@ a {
     z-index: 1000;
 }
 
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
 .main-header .logo {
     font-size: 1.8em;
     font-weight: 700;
 }
 
+.header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.main-header nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
 .main-header nav a {
     color: var(--color-text-light);
-    margin-left: 25px;
     font-weight: 400;
     padding-bottom: 5px;
     transition: border-bottom 0.3s;
@@ -87,6 +103,37 @@ a {
 .main-header nav a:hover,
 .main-header nav a.active {
     border-bottom: 3px solid var(--color-secondary);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.cart-icon i {
+    font-size: 1.2em;
+}
+
+#cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--color-secondary);
+    color: var(--color-primary);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 /* =========================================
@@ -612,4 +659,147 @@ footer {
 @keyframes fadeInUp {
     from { transform: translateY(30px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
+}
+
+/* === Card Actions (Favorite & Add to Cart) === */
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    gap: 10px;
+}
+
+.favorite-btn, .add-to-cart-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    padding: 5px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.favorite-btn:hover {
+    background-color: rgba(255, 0, 0, 0.1);
+    transform: scale(1.1);
+}
+
+.favorite-btn.favorited {
+    color: red;
+}
+
+.add-to-cart-btn:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.add-to-cart-btn.added {
+    color: green;
+}
+
+/* === Dark Mode Styles === */
+body.dark-mode {
+    --color-primary: #FFD700; /* Kuning Emas */
+    --color-secondary: #D2691E; /* Oranye Bakar */
+    --color-background: #1a1a1a; /* Gelap */
+    --color-text-dark: #f0f0f0; /* Terang */
+    --color-text-light: #333;
+    --color-shadow: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .main-header {
+    background-color: var(--color-background);
+    color: var(--color-text-dark);
+    border-bottom: 1px solid var(--color-primary);
+}
+
+body.dark-mode .main-header nav a {
+    color: var(--color-text-dark);
+}
+
+body.dark-mode .main-header nav a:hover,
+body.dark-mode .main-header nav a.active {
+    border-bottom: 3px solid var(--color-secondary);
+}
+
+body.dark-mode .resto-card.modern-card {
+    background-color: #2a2a2a;
+    color: var(--color-text-dark);
+}
+
+body.dark-mode .article-preview-card,
+body.dark-mode .article-card,
+body.dark-mode .static-page-content,
+body.dark-mode .info-sidebar {
+    background-color: #2a2a2a;
+    color: var(--color-text-dark);
+}
+
+body.dark-mode .directory-intro {
+    background-color: #2a2a2a;
+    border-bottom: 1px solid #444;
+}
+
+body.dark-mode footer {
+    background-color: var(--color-background);
+    color: var(--color-text-dark);
+}
+
+/* === Theme Toggle Switch === */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--color-primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.toggle-label {
+    font-size: 0.9em;
+    color: var(--color-text-light);
+    font-weight: 500;
 }

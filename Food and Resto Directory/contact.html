@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hubungi Kami | Laksa-na Resto</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -28,18 +29,33 @@
 </head>
 <body>
     
-   <header class="main-header" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px;">
-        <div style="display: flex; align-items: center;">
+   <header class="main-header">
+        <div class="header-left">
             <img src="logo.png" alt="Logo LAKSA-NA" width="50" height="50">
-            <h1 class="logo" style="margin-left: 10px; font-size: 24px;">LAKSA-NA</h1>
+            <h1 class="logo">LAKSA-NA</h1>
         </div>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="directory.html">Direktori Menu</a>
-            <a href="articles.html">Kuliner Asia</a>
-            <a href="about.html">Tentang</a>
-            <a href="contact.html" class="active">Kontak Kami</a>
-        </nav>
+        <div class="header-center">
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="directory.html">Direktori Menu</a>
+                <a href="articles.html">Kuliner Asia</a>
+                <a href="about.html">Tentang</a>
+                <a href="contact.html" class="active">Kontak Kami</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </div>
+            <div class="theme-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">Dark Mode</span>
+            </div>
+        </div>
     </header>
 
     <main class="static-page-content">
@@ -238,6 +254,9 @@
             alert("Form berhasil dikirim!");
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
     <script>
         // Cek parameter ?service=
         const params = new URLSearchParams(window.location.search);
