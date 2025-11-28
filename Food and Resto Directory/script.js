@@ -51,94 +51,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Dark Mode Toggle
     const initDarkMode = () => {
-        let retryCount = 0;
-        const maxRetries = 50; // Further increased retry count
+        let attempts = 0;
+        const maxAttempts = 20;
 
-        const findAndInitDarkMode = () => {
+        const tryInit = () => {
             const darkModeToggle = document.getElementById('dark-mode-toggle');
-            console.log('Attempting to find dark mode toggle, attempt:', retryCount + 1, 'Element found:', !!darkModeToggle);
-
-            if (!darkModeToggle) {
-                retryCount++;
-                if (retryCount < maxRetries) {
-                    setTimeout(findAndInitDarkMode, 25); // Even shorter retry interval
-                } else {
-                    console.error('Dark mode toggle not found after', maxRetries, 'retries on page:', window.location.pathname);
-                    // Try one more time with a longer delay as fallback
-                    setTimeout(() => {
-                        const finalAttempt = document.getElementById('dark-mode-toggle');
-                        if (finalAttempt) {
-                            console.log('Found dark mode toggle on final fallback attempt');
-                            initDarkModeToggle(finalAttempt);
-                        } else {
-                            console.error('Dark mode toggle still not found after all attempts');
-                        }
-                    }, 200);
-                }
+            if (!darkModeToggle && attempts < maxAttempts) {
+                attempts++;
+                setTimeout(tryInit, 50);
                 return;
             }
-
-            initDarkModeToggle(darkModeToggle);
-        };
-
-        const initDarkModeToggle = (darkModeToggle) => {
-            console.log('Dark mode toggle found, initializing...');
+            if (!darkModeToggle) {
+                console.error('Dark mode toggle not found after retries');
+                return;
+            }
 
             // Load dark mode preference from localStorage
             const isDarkMode = localStorage.getItem('darkMode') === 'true';
             document.body.classList.toggle('dark-mode', isDarkMode);
             darkModeToggle.checked = isDarkMode;
 
-            // Toggle dark mode - add listener to both checkbox and its label for better compatibility
-            const toggleFunction = () => {
+            // Toggle function
+            const toggleDarkMode = () => {
                 const isEnabled = darkModeToggle.checked;
-                console.log('Dark mode toggled:', isEnabled);
                 document.body.classList.toggle('dark-mode', isEnabled);
                 localStorage.setItem('darkMode', isEnabled);
             };
 
-            darkModeToggle.addEventListener('change', toggleFunction);
+            // Add change listener to checkbox
+            darkModeToggle.addEventListener('change', toggleDarkMode);
 
-            // Also add to the label for index.html compatibility
-            const label = darkModeToggle.closest('label');
-            if (label) {
-                console.log('Adding click listener to label');
-                label.addEventListener('click', (e) => {
-                    // Small delay to let the checkbox state update first
-                    setTimeout(() => {
-                        toggleFunction();
-                    }, 10);
-                });
-            }
-
-            // Additional fallback: listen for clicks on the theme-toggle container
-            const themeToggleContainer = darkModeToggle.closest('.theme-toggle');
-            if (themeToggleContainer) {
-                console.log('Adding click listener to theme-toggle container');
-                themeToggleContainer.addEventListener('click', (e) => {
-                    // Only trigger if the click wasn't on the checkbox itself
-                    if (e.target !== darkModeToggle) {
-                        setTimeout(() => {
-                            toggleFunction();
-                        }, 10);
-                    }
-                });
-            }
-
-            // Extra fallback: listen for any click on the toggle area
-            const toggleLabel = darkModeToggle.parentNode.querySelector('.toggle-label');
+            // Make toggle-label clickable
+            const toggleLabel = document.querySelector('.toggle-label');
             if (toggleLabel) {
-                console.log('Adding click listener to toggle label text');
                 toggleLabel.addEventListener('click', () => {
-                    setTimeout(() => {
+                    darkModeToggle.checked = !darkModeToggle.checked;
+                    toggleDarkMode();
+                });
+            }
+
+            // Make theme-toggle container clickable (excluding switch area and label)
+            const themeToggle = document.querySelector('.theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', (e) => {
+                    if (!e.target.closest('.switch') && e.target !== toggleLabel) {
                         darkModeToggle.checked = !darkModeToggle.checked;
-                        toggleFunction();
-                    }, 10);
+                        toggleDarkMode();
+                    }
                 });
             }
         };
 
-        findAndInitDarkMode();
+        tryInit();
     };
 
     // 4. Favorites Functionality
