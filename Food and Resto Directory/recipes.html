@@ -13,15 +13,17 @@
 
    <header class="main-header">
         <div class="header-left">
-            <img src="logo.png" alt="Logo LAKSA-NA" width="50" height="50">
-            <h1 class="logo">LAKSA-NA</h1>
+            <a href="profile.html" style="text-decoration: none; color: inherit;">
+                <img src="logo.png" alt="Logo LAKSA-NA" width="50" height="50">
+                <h1 class="logo">LAKSA-NA</h1>
+            </a>
         </div>
         <div class="header-center">
             <nav>
                 <a href="index.html">Home</a>
                 <a href="directory.html">Direktori Menu</a>
                 <a href="articles.html">Kuliner Asia</a>
-                <a href="recipes.html">Resep</a>
+                <a href="recipes.html" class="active">Resep</a>
                 <a href="about.html">Tentang</a>
                 <a href="contact.html">Kontak Kami</a>
                 <a href="faq.html">FAQ</a>
@@ -42,137 +44,85 @@
         </div>
     </header>
 
-    <main class="recipes-container">
-        <section class="recipes-hero">
-            <div class="container">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <h1 class="hero-title">Komunitas Resep LAKSA-NA</h1>
-                        <p class="hero-subtitle">Temukan inspirasi kuliner dari komunitas pecinta masakan Asia Tenggara. Bagikan resep favorit Anda dan jelajahi kreasi unik dari sesama foodies!</p>
-                        <div class="hero-stats">
-                            <div class="stat-item">
-                                <i class="fas fa-utensils"></i>
-                                <span>100+ Resep</span>
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-users"></i>
-                                <span>500+ Anggota</span>
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-star"></i>
-                                <span>4.8 Rating</span>
-                            </div>
-                        </div>
-                        <button id="share-recipe-btn" class="btn-primary btn-lg">
-                            <i class="fas fa-plus-circle me-2"></i>Bagikan Resep Anda
-                        </button>
-                    </div>
+    <main>
+        <section class="hero-search directory-intro">
+            <h2>Komunitas Resep LAKSA-NA 🌟</h2>
+            <p>Temukan inspirasi kuliner dari komunitas pecinta masakan Asia Tenggara. Bagikan resep favorit Anda dan jelajahi kreasi dari pengguna lain!</p>
+            <button id="share-recipe-btn" class="btn-primary"><i class="fas fa-plus me-2"></i>Bagikan Resep Anda</button>
+        </section>
 
-                </div>
+        <section class="highlight-section">
+            <h3>🍳 Resep Unggulan Minggu Ini</h3>
+            <div class="grid-container">
+                <!-- Featured recipes will be populated by JavaScript -->
             </div>
         </section>
 
-        <section class="recipes-content container">
-            <div class="recipes-filters">
-                <div class="filter-controls">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="recipe-search" placeholder="Cari resep favorit Anda...">
-                    </div>
-                    <div class="filter-group">
-                        <select id="recipe-category" class="filter-select">
-                            <option value="all">🍽️ Semua Kategori</option>
-                            <option value="laksa">🥣 Laksa</option>
-                            <option value="indonesian">🇮🇩 Indonesia</option>
-                            <option value="malaysian">🇲🇾 Malaysia/Singapura</option>
-                            <option value="thai">🇹🇭 Thailand</option>
-                            <option value="vietnamese">🇻🇳 Vietnam</option>
-                            <option value="other">🌍 Lainnya</option>
-                        </select>
-                        <select id="recipe-sort" class="filter-select">
-                            <option value="newest">🕒 Terbaru</option>
-                            <option value="popular">🔥 Terpopuler</option>
-                            <option value="rating">⭐ Rating Tertinggi</option>
-                        </select>
-                    </div>
-                </div>
+        <section class="directory-intro">
+            <div class="search-controls">
+                <input type="text" id="recipe-search" placeholder="Cari resep...">
+                <select id="recipe-category">
+                    <option value="all">Semua Kategori</option>
+                    <option value="laksa">Laksa</option>
+                    <option value="indonesian">Indonesia</option>
+                    <option value="malaysian">Malaysia/Singapura</option>
+                    <option value="thai">Thailand</option>
+                    <option value="vietnamese">Vietnam</option>
+                </select>
+                <select id="recipe-sort">
+                    <option value="newest">Terbaru</option>
+                    <option value="popular">Terpopuler</option>
+                    <option value="rating">Rating Tertinggi</option>
+                </select>
             </div>
+        </section>
 
-            <div class="featured-recipes">
-                <h2 class="section-title">
-                    <i class="fas fa-star"></i> Resep Unggulan
-                </h2>
-                <div id="featured-recipes-list" class="featured-grid">
-                    <!-- Featured recipes will be loaded here -->
-                </div>
-            </div>
+        <section id="resto-list" class="grid-container">
+            <!-- Recipe cards will be populated by JavaScript -->
+        </section>
 
-            <div class="all-recipes">
-                <h2 class="section-title">
-                    <i class="fas fa-utensils"></i> Semua Resep
-                </h2>
-                <div id="recipes-list" class="recipes-grid">
-                    <!-- All recipes will be loaded here -->
-                </div>
-            </div>
-
-            <div class="recipe-pagination">
-                <nav aria-label="Recipe pagination">
-                    <ul class="pagination justify-content-center" id="recipe-pagination">
-                        <!-- Pagination will be generated here -->
-                    </ul>
-                </nav>
-            </div>
+        <section class="pagination-section">
+            <nav aria-label="Recipes pagination">
+                <ul class="pagination justify-content-center" id="pagination-controls">
+                    <!-- Pagination buttons will be generated by JavaScript -->
+                </ul>
+            </nav>
         </section>
     </main>
 
-    <!-- Recipe Sharing Modal -->
-    <div id="recipe-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
+    <!-- SHARE RECIPE MODAL -->
+    <div id="recipe-modal" class="popup-overlay" style="display:none;">
+        <div class="popup-content">
+            <button class="close-btn">&times;</button>
             <h3>Bagikan Resep Anda</h3>
-            <form id="recipe-form">
+            <form id="share-recipe-form">
                 <div class="form-group">
-                    <label for="recipe-title">Judul Resep:</label>
+                    <label for="recipe-title">Judul Resep</label>
                     <input type="text" id="recipe-title" required>
                 </div>
                 <div class="form-group">
-                    <label for="recipe-category-select">Kategori:</label>
-                    <select id="recipe-category-select" required>
+                    <label for="recipe-category-modal">Kategori</label>
+                    <select id="recipe-category-modal" required>
                         <option value="">Pilih Kategori</option>
                         <option value="laksa">Laksa</option>
                         <option value="indonesian">Indonesia</option>
                         <option value="malaysian">Malaysia/Singapura</option>
                         <option value="thai">Thailand</option>
                         <option value="vietnamese">Vietnam</option>
-                        <option value="other">Lainnya</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="recipe-description">Deskripsi:</label>
-                    <textarea id="recipe-description" rows="3" placeholder="Deskripsikan resep Anda..." required></textarea>
+                    <label for="recipe-description">Deskripsi</label>
+                    <textarea id="recipe-description" rows="4" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="recipe-ingredients">Bahan-bahan:</label>
-                    <textarea id="recipe-ingredients" rows="5" placeholder="Satu bahan per baris..." required></textarea>
+                    <label for="recipe-image">Gambar (URL)</label>
+                    <input type="url" id="recipe-image">
                 </div>
-                <div class="form-group">
-                    <label for="recipe-instructions">Cara Memasak:</label>
-                    <textarea id="recipe-instructions" rows="8" placeholder="Langkah-langkah memasak..." required></textarea>
+                <div class="popup-buttons">
+                    <button type="button" class="popup-option close-btn">Batal</button>
+                    <button type="submit" class="popup-option dinein">Bagikan</button>
                 </div>
-                <div class="form-group">
-                    <label for="recipe-image">Foto Resep (URL):</label>
-                    <input type="url" id="recipe-image" placeholder="https://example.com/image.jpg">
-                </div>
-                <div class="form-group">
-                    <label for="recipe-time">Waktu Memasak (menit):</label>
-                    <input type="number" id="recipe-time" min="1">
-                </div>
-                <div class="form-group">
-                    <label for="recipe-servings">Porsi:</label>
-                    <input type="number" id="recipe-servings" min="1" value="4">
-                </div>
-                <button type="submit" class="btn-primary">Bagikan Resep</button>
             </form>
         </div>
     </div>
@@ -184,207 +134,5 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
-    <script>
-        // Recipe sharing functionality
-        document.addEventListener('DOMContentLoaded', () => {
-            const recipeModal = document.getElementById('recipe-modal');
-            const shareRecipeBtn = document.getElementById('share-recipe-btn');
-            const modalClose = document.querySelector('.modal-close');
-            const recipeForm = document.getElementById('recipe-form');
-            const recipeSearch = document.getElementById('recipe-search');
-            const recipeCategory = document.getElementById('recipe-category');
-            const recipeSort = document.getElementById('recipe-sort');
-            const recipesList = document.getElementById('recipes-list');
-
-            // Sample recipes data (in a real app, this would come from a backend)
-            let recipes = JSON.parse(localStorage.getItem('sharedRecipes')) || [
-                {
-                    id: 1,
-                    title: "Laksa Bogor Homemade",
-                    category: "laksa",
-                    description: "Resep laksa bogor yang mudah dibuat di rumah",
-                    ingredients: ["Mie kuning", "Oncom", "Santan", "Udang", "Bumbu laksa"],
-                    instructions: "Rebus mie, tumis bumbu, tambahkan oncom dan santan...",
-                    image: "laksabogor.jpeg",
-                    time: 45,
-                    servings: 4,
-                    author: "User1",
-                    date: "2025-01-15",
-                    rating: 4.5,
-                    likes: 12
-                }
-            ];
-
-            // Modal controls
-            shareRecipeBtn.addEventListener('click', () => {
-                recipeModal.style.display = 'flex';
-            });
-
-            modalClose.addEventListener('click', () => {
-                recipeModal.style.display = 'none';
-            });
-
-            window.addEventListener('click', (e) => {
-                if (e.target === recipeModal) {
-                    recipeModal.style.display = 'none';
-                }
-            });
-
-            // Submit recipe
-            recipeForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-
-                const newRecipe = {
-                    id: Date.now(),
-                    title: document.getElementById('recipe-title').value,
-                    category: document.getElementById('recipe-category-select').value,
-                    description: document.getElementById('recipe-description').value,
-                    ingredients: document.getElementById('recipe-ingredients').value.split('\n').filter(i => i.trim()),
-                    instructions: document.getElementById('recipe-instructions').value,
-                    image: document.getElementById('recipe-image').value || 'logo.png',
-                    time: parseInt(document.getElementById('recipe-time').value) || 30,
-                    servings: parseInt(document.getElementById('recipe-servings').value) || 4,
-                    author: JSON.parse(localStorage.getItem('userData'))?.name || 'Anonymous',
-                    date: new Date().toISOString().split('T')[0],
-                    rating: 0,
-                    likes: 0
-                };
-
-                recipes.unshift(newRecipe);
-                localStorage.setItem('sharedRecipes', JSON.stringify(recipes));
-
-                recipeModal.style.display = 'none';
-                recipeForm.reset();
-                renderRecipes();
-                showToast('Resep berhasil dibagikan!', 'success');
-            });
-
-            // Render recipes
-            const renderRecipes = () => {
-                const searchTerm = recipeSearch.value.toLowerCase();
-                const selectedCategory = recipeCategory.value;
-                const sortBy = recipeSort.value;
-
-                let filteredRecipes = recipes.filter(recipe => {
-                    const matchesSearch = recipe.title.toLowerCase().includes(searchTerm) ||
-                                        recipe.description.toLowerCase().includes(searchTerm);
-                    const matchesCategory = selectedCategory === 'all' || recipe.category === selectedCategory;
-                    return matchesSearch && matchesCategory;
-                });
-
-                // Sort recipes
-                filteredRecipes.sort((a, b) => {
-                    switch(sortBy) {
-                        case 'popular':
-                            return b.likes - a.likes;
-                        case 'rating':
-                            return b.rating - a.rating;
-                        case 'newest':
-                        default:
-                            return new Date(b.date) - new Date(a.date);
-                    }
-                });
-
-                recipesList.innerHTML = filteredRecipes.map(recipe => `
-                    <article class="recipe-card">
-                        <img src="${recipe.image}" alt="${recipe.title}" onerror="this.src='logo.png'">
-                        <div class="recipe-content">
-                            <h3>${recipe.title}</h3>
-                            <p class="recipe-meta">
-                                <span><i class="fas fa-user"></i> ${recipe.author}</span>
-                                <span><i class="fas fa-clock"></i> ${recipe.time}min</span>
-                                <span><i class="fas fa-users"></i> ${recipe.servings} porsi</span>
-                            </p>
-                            <p class="recipe-description">${recipe.description}</p>
-                            <div class="recipe-actions">
-                                <button class="like-btn" data-recipe-id="${recipe.id}">
-                                    <i class="fas fa-heart"></i> ${recipe.likes}
-                                </button>
-                                <button class="view-recipe-btn" data-recipe-id="${recipe.id}">Lihat Resep</button>
-                            </div>
-                        </div>
-                    </article>
-                `).join('');
-
-                // Add event listeners
-                document.querySelectorAll('.like-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const recipeId = parseInt(btn.getAttribute('data-recipe-id'));
-                        const recipe = recipes.find(r => r.id === recipeId);
-                        if (recipe) {
-                            recipe.likes++;
-                            localStorage.setItem('sharedRecipes', JSON.stringify(recipes));
-                            renderRecipes();
-                        }
-                    });
-                });
-
-                document.querySelectorAll('.view-recipe-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const recipeId = parseInt(btn.getAttribute('data-recipe-id'));
-                        const recipe = recipes.find(r => r.id === recipeId);
-                        if (recipe) {
-                            showRecipeDetail(recipe);
-                        }
-                    });
-                });
-            };
-
-            // Show recipe detail
-            const showRecipeDetail = (recipe) => {
-                const detailModal = document.createElement('div');
-                detailModal.className = 'modal-overlay';
-                detailModal.innerHTML = `
-                    <div class="modal-content recipe-detail-modal">
-                        <button class="modal-close">&times;</button>
-                        <div class="recipe-detail">
-                            <img src="${recipe.image}" alt="${recipe.title}" onerror="this.src='logo.png'">
-                            <div class="recipe-detail-content">
-                                <h2>${recipe.title}</h2>
-                                <div class="recipe-meta">
-                                    <span>Oleh: ${recipe.author}</span>
-                                    <span><i class="fas fa-clock"></i> ${recipe.time} menit</span>
-                                    <span><i class="fas fa-users"></i> ${recipe.servings} porsi</span>
-                                    <span><i class="fas fa-calendar"></i> ${recipe.date}</span>
-                                </div>
-                                <p class="recipe-description">${recipe.description}</p>
-
-                                <h3>Bahan-bahan:</h3>
-                                <ul class="ingredients-list">
-                                    ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}
-                                </ul>
-
-                                <h3>Cara Memasak:</h3>
-                                <ol class="instructions-list">
-                                    ${recipe.instructions.split('\n').filter(step => step.trim()).map(step => `<li>${step}</li>`).join('')}
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                document.body.appendChild(detailModal);
-
-                // Close modal
-                detailModal.querySelector('.modal-close').addEventListener('click', () => {
-                    detailModal.remove();
-                });
-
-                detailModal.addEventListener('click', (e) => {
-                    if (e.target === detailModal) {
-                        detailModal.remove();
-                    }
-                });
-            };
-
-            // Event listeners for filters
-            recipeSearch.addEventListener('input', renderRecipes);
-            recipeCategory.addEventListener('change', renderRecipes);
-            recipeSort.addEventListener('change', renderRecipes);
-
-            // Initial render
-            renderRecipes();
-        });
-    </script>
 </body>
 </html>

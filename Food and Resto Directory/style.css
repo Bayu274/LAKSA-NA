@@ -74,6 +74,7 @@ a {
 .header-left {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 .main-header .logo {
