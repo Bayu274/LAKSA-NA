@@ -2,20 +2,36 @@ document.addEventListener('DOMContentLoaded', () => {
     // Global error handling
     window.addEventListener('error', (e) => {
         console.error('JavaScript Error:', e.error);
-        showToast('Terjadi kesalahan. Silakan refresh halaman.', 'error');
+        // Only show error toast for critical errors, not for missing elements
+        if (!e.error.message.includes('Cannot read properties of null') &&
+            !e.error.message.includes('is not defined')) {
+            showToast('Terjadi kesalahan. Silakan refresh halaman.', 'error');
+        }
     });
 
     window.addEventListener('unhandledrejection', (e) => {
         console.error('Unhandled Promise Rejection:', e.reason);
         showToast('Terjadi kesalahan jaringan.', 'error');
     });
-    // 1. Ambil elemen-elemen penting dari HTML
+    // 1. Ambil elemen-elemen penting dari HTML (hanya jika ada di halaman ini)
     const searchBar = document.getElementById('search-bar');
     const categoryFilter = document.getElementById('category-filter');
     const restoCards = document.querySelectorAll('.resto-card'); // Semua kartu menu
 
+    // Global helper functions
+    let updatePagination; // Declare globally for access from other functions
+
+    const updateCartCount = () => {
+        const cartCount = document.getElementById('cart-count');
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+        if (cartCount) cartCount.textContent = totalItems;
+    };
+
     // Fungsi utama untuk memfilter dan mencari kartu
     const updateDirectory = () => {
+        if (!categoryFilter || !searchBar || restoCards.length === 0) return;
+
         const selectedCategory = categoryFilter.value;
         const searchTerm = searchBar.value.toLowerCase();
 
@@ -148,14 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const cartCount = document.getElementById('cart-count');
         const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-        // Update cart count display
-        const updateCartCount = () => {
-            const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            if (cartCount) cartCount.textContent = totalItems;
-        };
-
-        updateCartCount();
-
         // Handle add to cart button clicks
         addToCartButtons.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -180,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateCartCount();
 
                 // Show success message
-                showNotification(`${itemName} ditambahkan ke keranjang!`);
+                showToast(`${itemName} ditambahkan ke keranjang!`);
             });
         });
     };
@@ -304,13 +312,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const initPagination = () => {
         const restoList = document.getElementById('resto-list');
         const paginationControls = document.getElementById('pagination-controls');
-        if (!restoList || !paginationControls) return;
+        if (!restoList || !paginationControls || restoCards.length === 0) return;
 
         const itemsPerPage = 6;
         let currentPage = 1;
         const allItems = Array.from(restoList.children);
 
-        const updatePagination = () => {
+        updatePagination = () => {
             const filteredItems = allItems.filter(item => item.style.display !== 'none');
             const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
@@ -357,6 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const priceFilter = document.getElementById('price-filter');
         const spicyFilter = document.getElementById('spicy-filter');
         const dietaryFilter = document.getElementById('dietary-filter');
+
+        if (!priceFilter && !spicyFilter && !dietaryFilter) return;
 
         const applyAdvancedFilters = () => {
             const selectedPrice = priceFilter ? priceFilter.value : 'all';
@@ -431,6 +441,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 13. Search by Ingredients (Placeholder)
     const initIngredientSearch = () => {
+        if (!searchBar || !categoryFilter || restoCards.length === 0) return;
+
         // This would allow searching by specific ingredients
         // For now, we'll enhance the existing search to include ingredients
         const originalUpdateDirectory = updateDirectory;
@@ -741,75 +753,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // 21. FAQ Page Creation (Placeholder)
-    const initFAQ = () => {
-        // This would create an FAQ page, but for now we'll add FAQ functionality
-        // to the about page or create a simple FAQ modal
-        const faqData = [
-            {
-                question: "Apa itu LAKSA-NA?",
-                answer: "LAKSA-NA adalah direktori kuliner khusus untuk berbagai jenis laksa dan hidangan Asia Tenggara lainnya."
-            },
-            {
-                question: "Bagaimana cara memesan?",
-                answer: "Anda dapat memesan melalui tombol 'Pesan Sekarang' di halaman detail menu, lalu pilih metode dine-in atau takeaway."
-            },
-            {
-                question: "Apakah ada pengiriman?",
-                answer: "Saat ini kami hanya menyediakan layanan dine-in dan takeaway. Pengiriman mungkin tersedia di masa depan."
-            },
-            {
-                question: "Bagaimana cara membagikan resep?",
-                answer: "Kunjungi halaman Resep dan klik tombol 'Bagikan Resep' untuk membagikan resep masakan Anda."
-            }
-        ];
 
-        // Add FAQ button to navigation or footer
-        const nav = document.querySelector('.header-center nav');
-        if (nav) {
-            const faqLink = document.createElement('a');
-            faqLink.href = '#';
-            faqLink.textContent = 'FAQ';
-            faqLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                showFAQModal(faqData);
-            });
-            nav.appendChild(faqLink);
-        }
-    };
-
-    // Helper function to show FAQ modal
-    const showFAQModal = (faqData) => {
-        const faqModal = document.createElement('div');
-        faqModal.className = 'modal-overlay';
-        faqModal.innerHTML = `
-            <div class="modal-content faq-modal">
-                <button class="modal-close">&times;</button>
-                <h2>Pertanyaan yang Sering Diajukan</h2>
-                <div class="faq-list">
-                    ${faqData.map(item => `
-                        <div class="faq-item">
-                            <h4>${item.question}</h4>
-                            <p>${item.answer}</p>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-
-        document.body.appendChild(faqModal);
-
-        // Close modal
-        faqModal.querySelector('.modal-close').addEventListener('click', () => {
-            faqModal.remove();
-        });
-
-        faqModal.addEventListener('click', (e) => {
-            if (e.target === faqModal) {
-                faqModal.remove();
-            }
-        });
-    };
 
     // Performance optimization: Debounce search input
     const debounce = (func, wait) => {
@@ -847,7 +791,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initAccessibility();
     initSearchHistory();
     initNewsletter();
-    initFAQ();
     updateFavoritesDisplay();
     updateCartDisplay();
 });
