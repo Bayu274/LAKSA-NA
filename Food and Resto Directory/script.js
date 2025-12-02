@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Fungsi utama untuk memfilter dan mencari kartu
-    const updateDirectory = () => {
+    let updateDirectory = () => {
         if (!categoryFilter || !searchBar || restoCards.length === 0) return;
 
         const selectedCategory = categoryFilter.value;
@@ -783,7 +783,61 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+// === 22. SOCIAL MEDIA SHARING FUNCTIONALITY ===
+    const initSocialSharing = () => {
+        const socialButtons = document.querySelectorAll('.social-btn');
+        
+        if (socialButtons.length === 0) return;
 
+        // Ambil data halaman saat ini
+        const pageUrl = encodeURIComponent(window.location.href);
+        const pageTitle = encodeURIComponent(document.title);
+
+        socialButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const platform = btn.getAttribute('data-platform');
+                let shareUrl = '';
+
+                // Logika untuk setiap platform
+                if (platform === 'facebook') {
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                
+                } else if (platform === 'twitter') {
+                    shareUrl = `https://twitter.com/intent/tweet?text=${pageTitle}&url=${pageUrl}`;
+                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                
+                } else if (platform === 'whatsapp') {
+                    // Menggunakan API WhatsApp Web
+                    shareUrl = `https://api.whatsapp.com/send?text=${pageTitle}%20${pageUrl}`;
+                    window.open(shareUrl, '_blank');
+                
+                } else if (platform === 'copy') {
+                    // Fitur Copy Link
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        // Ubah teks tombol sementara
+                        const originalHTML = btn.innerHTML;
+                        btn.innerHTML = '<i class="fas fa-check" style="color: green;"></i> Tersalin!';
+                        setTimeout(() => {
+                            btn.innerHTML = originalHTML;
+                        }, 2000);
+                        
+                        // Tampilkan notifikasi toast (jika ada fungsi showToast)
+                        if (typeof showToast === 'function') {
+                            showToast('Link berhasil disalin!', 'success');
+                        } else {
+                            alert('Link berhasil disalin ke clipboard!');
+                        }
+                    }).catch(err => {
+                        console.error('Gagal menyalin: ', err);
+                    });
+                }
+            });
+        });
+    };
+
+    // Panggil fungsinya
+    initSocialSharing();
 
     // Performance optimization: Debounce search input
     const debounce = (func, wait) => {

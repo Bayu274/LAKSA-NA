@@ -2,6 +2,7 @@
 =========================================
       style.css - LAKSA-NA Resto
         FINAL FULL Stylesheet
+      (Updated: Fix Header & Logo)
 =========================================
 */
 
@@ -61,7 +62,7 @@ a {
 .main-header {
     background-color: var(--color-primary);
     color: var(--color-text-light);
-    padding: 15px 40px;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -75,11 +76,15 @@ a {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-shrink: 0;
 }
 
 .main-header .logo {
     font-size: 1.8em;
     font-weight: 700;
+    margin: 0;
+    line-height: 1;
+    white-space: nowrap;
 }
 
 .header-center {
@@ -88,22 +93,81 @@ a {
     justify-content: center;
 }
 
-.main-header nav {
+/* --- 1. HAMBURGER: TETAP DI KANAN --- */
+.hamburger-menu {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    padding: 5px;
+    background: none;
+    border: none;
+    z-index: 1001; /* Harus lebih tinggi dari menu nav agar bisa diklik untuk tutup */
+}
+
+/* --- 2. NAVIGASI: SLIDE DARI KANAN (SIDE DRAWER) --- */
+.header-center nav {
+    /* Layout Isi Menu */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Menu di tengah-tengah vertikal */
     align-items: center;
     gap: 25px;
+
+    /* Posisi & Ukuran Side Drawer */
+    position: fixed;
+    top: 0;
+    right: 0; /* Tempel ke Kanan */
+    
+    /* UKURAN: Setengah Layar */
+    width: 50%;         
+    min-width: 250px;   /* Jaga-jaga kalau HP terlalu kecil, minimal lebar 250px */
+    max-width: 400px;   /* Jaga-jaga kalau Desktop terlalu lebar, maksimal 400px */
+    
+    height: 100vh;      /* Tinggi Full */
+    
+    /* Tampilan Visual */
+    background-color: var(--color-primary);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2); /* Bayangan di sisi kiri menu */
+    z-index: 999;
+
+    /* ANIMASI SLIDE DARI KANAN */
+    /* Geser ke kanan sejauh 100% (Sembunyi ke luar layar kanan) */
+    transform: translateX(100%); 
+    transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0); /* Animasi mulus */
 }
 
-.main-header nav a {
+/* KELAS AKTIF: Saat hamburger diklik, geser ke posisi 0 (Muncul) */
+.header-center nav.active {
+    transform: translateX(0);
+}
+
+/* Style Link Menu */
+.header-center nav a {
     color: var(--color-text-light);
-    font-weight: 400;
-    padding-bottom: 5px;
-    transition: border-bottom 0.3s;
+    font-size: 1.1em;
+    font-weight: 500;
+    width: 80%; /* Lebar tombol menyesuaikan lebar menu */
+    text-align: center;
+    padding: 12px 0;
+    border-radius: 8px;
+    transition: all 0.3s;
 }
 
-.main-header nav a:hover,
-.main-header nav a.active {
-    border-bottom: 3px solid var(--color-secondary);
+.header-center nav a:hover,
+.header-center nav a.active {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Dark Mode Support */
+body.dark-mode .main-header nav a {
+    color: #000000 !important;
+    font-weight: 600;
+}
+body.dark-mode .main-header nav {
+    background-color: #FFD700 !important; /* Warna Oranye Bakar */
 }
 
 .header-right {
@@ -136,7 +200,6 @@ a {
     font-size: 12px;
     font-weight: bold;
 }
-
 /* =========================================
    2. HOME PAGE (index.html)
    ========================================= */
@@ -332,14 +395,16 @@ a {
     padding: 0 20px;
 }
 
-/* Custom styling for carousel images to make them smaller */
-#laksaCarousel .carousel-item img {
-    max-width: 50%;
-    height: auto;
+.resto-hero-detail .carousel-item img {
+    aspect-ratio: 1 / 1; 
+    height: auto;        
+    width: 100%;         
+    max-width: 500px;
+    object-fit: cover;   
+    border-radius: 15px;
+    margin: 0 auto;    
     display: block;
-    margin: 0 auto;
 }
-
 .resto-hero-detail {
     text-align: center;
     margin-bottom: 30px;
@@ -396,7 +461,7 @@ a {
     max-width: 900px;
     margin: 40px auto;
     padding: 30px;
-    background-color: #fff;
+    background-color: #333;
     border-radius: 10px;
     box-shadow: 0 4px 10px var(--color-shadow);
 }
@@ -546,24 +611,16 @@ footer {
     }
 }
 
-/* Tablet (768px ke bawah) */
+/* Tablet (768px ke bawah) - NOTE: Ini sudah dihandle oleh query 1024px di atas untuk Navigasi, ini sisa style layout konten */
 @media (max-width: 768px) {
     /* Navigasi */
     .main-header {
         flex-direction: column;
         padding: 15px 20px;
     }
-    .main-header nav {
-        display: none;
-    }
     .main-header nav a {
         margin: 5px 10px;
         font-size: 0.9em;
-    }
-
-    /* Hamburger Menu */
-    .hamburger-menu {
-        display: flex;
     }
 
     /* Direktori Grid */
@@ -654,7 +711,7 @@ footer {
 
 /* Hamburger Menu Styles */
 .hamburger-menu {
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 30px;
@@ -684,45 +741,6 @@ footer {
 
 .hamburger-menu.active .hamburger-line:nth-child(3) {
     transform: rotate(-45deg) translate(6px, -6px);
-}
-
-/* Mobile Navigation Menu */
-@media (max-width: 768px) {
-    .header-center nav {
-        position: fixed;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        height: calc(100vh - 100%);
-        background-color: var(--color-primary);
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        padding-top: 50px;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-        z-index: 999;
-        display: none;
-    }
-
-    .header-center nav.active {
-        display: flex;
-        transform: translateX(0);
-    }
-
-    .header-center nav a {
-        margin: 15px 0;
-        font-size: 1.2em;
-        padding: 10px 20px;
-        width: 200px;
-        text-align: center;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-    }
-
-    .header-center nav a:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
 }
 
 /* Small Mobile (320px ke bawah) */
@@ -805,6 +823,7 @@ footer {
 }
 
 .popup-option:hover {
+    
     transform: scale(1.05);
 }
 
@@ -892,6 +911,10 @@ body.dark-mode .main-header {
     border-bottom: 1px solid var(--color-primary);
 }
 
+body.dark-mode .toggle-label {
+    color: var(--color-text-dark); 
+}
+
 body.dark-mode .main-header nav a {
     color: var(--color-text-dark);
 }
@@ -922,6 +945,10 @@ body.dark-mode .directory-intro {
 body.dark-mode footer {
     background-color: var(--color-background);
     color: var(--color-text-dark);
+}
+
+body.dark-mode .hamburger-line {
+    background-color: #fff;
 }
 
 /* === Theme Toggle Switch === */
@@ -989,7 +1016,7 @@ input:checked + .slider:before {
 .faq-hero {
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
     color: var(--color-text-light);
-    padding: 80px 20px;
+    padding: 60px 20px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -1010,70 +1037,78 @@ input:checked + .slider:before {
 .faq-hero > div {
     position: relative;
     z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .faq-title {
-    font-size: 3.5em;
+    font-size: 2.8em;
     margin-bottom: 15px;
     font-weight: 700;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .faq-subtitle {
-    font-size: 1.3em;
-    margin-bottom: 40px;
+    font-size: 1.2em;
+    margin-bottom: 30px;
     opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .faq-stats {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 30px;
     flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .stat-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 20px;
+    gap: 8px;
+    padding: 15px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    border-radius: 12px;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: 120px;
 }
 
 .stat-item i {
-    font-size: 2.5em;
+    font-size: 2em;
     color: var(--color-text-light);
 }
 
 .stat-item span {
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: 600;
 }
 
 .faq-section {
-    padding: 60px 20px;
-    max-width: 900px;
+    padding: 50px 20px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 .accordion-item {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border: none;
     border-radius: 10px !important;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
 }
 
 .accordion-button {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     color: var(--color-text-dark);
     font-weight: 600;
-    font-size: 1.1em;
-    padding: 20px 25px;
+    font-size: 1.05em;
+    padding: 18px 20px;
     border: none;
     border-radius: 10px !important;
     transition: all 0.3s ease;
@@ -1096,7 +1131,7 @@ input:checked + .slider:before {
 
 .accordion-body {
     background: #fff;
-    padding: 25px;
+    padding: 20px;
     border-radius: 0 0 10px 10px;
     font-size: 1em;
     line-height: 1.6;
@@ -1104,8 +1139,8 @@ input:checked + .slider:before {
 
 .faq-contact-cta {
     text-align: center;
-    margin-top: 50px;
-    padding: 40px;
+    margin-top: 40px;
+    padding: 35px 25px;
     background: linear-gradient(135deg, var(--color-background) 0%, #f8f9fa 100%);
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -1113,19 +1148,19 @@ input:checked + .slider:before {
 
 .faq-contact-cta h3 {
     color: var(--color-primary);
-    margin-bottom: 15px;
-    font-size: 1.8em;
+    margin-bottom: 12px;
+    font-size: 1.6em;
 }
 
 .faq-contact-cta p {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     color: #666;
-    font-size: 1.1em;
+    font-size: 1em;
 }
 
 .faq-contact-cta .btn {
-    padding: 12px 30px;
-    font-size: 1.1em;
+    padding: 12px 25px;
+    font-size: 1em;
     font-weight: 600;
     border-radius: 25px;
     transition: all 0.3s ease;
@@ -1158,6 +1193,7 @@ body.dark-mode .faq-subtitle {
 body.dark-mode .stat-item {
     background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(210, 105, 30, 0.1) 100%);
     border: 1px solid rgba(255, 215, 0, 0.3);
+    -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
     box-shadow: 0 4px 15px rgba(255, 215, 0, 0.1);
 }
@@ -1239,6 +1275,59 @@ body.dark-mode .faq-contact-cta .btn:hover {
     box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
 }
 
+/* Desktop FAQ adjustments */
+@media (min-width: 1025px) {
+    .faq-hero {
+        padding: 40px 20px;
+    }
+
+    .faq-title {
+        font-size: 2.4em;
+        margin-bottom: 10px;
+    }
+
+    .faq-subtitle {
+        font-size: 1.1em;
+        margin-bottom: 20px;
+    }
+
+    .faq-stats {
+        gap: 25px;
+        margin-top: 15px;
+    }
+
+    .stat-item {
+        padding: 12px;
+        min-width: 100px;
+    }
+
+    .stat-item i {
+        font-size: 1.8em;
+    }
+
+    .faq-section {
+        padding: 40px 20px;
+    }
+
+    .accordion-button {
+        padding: 16px 18px;
+        font-size: 1em;
+    }
+
+    .accordion-body {
+        padding: 18px;
+    }
+
+    .faq-contact-cta {
+        margin-top: 30px;
+        padding: 30px 20px;
+    }
+
+    .faq-contact-cta h3 {
+        font-size: 1.5em;
+    }
+}
+
 /* Responsive FAQ */
 @media (max-width: 768px) {
     .faq-title {
@@ -1277,4 +1366,60 @@ body.dark-mode .faq-contact-cta .btn:hover {
     .faq-contact-cta h3 {
         font-size: 1.5em;
     }
+}
+/* === SOCIAL SHARING BUTTONS STYLE === */
+.social-sharing-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px dashed #ccc; /* Garis pemisah putus-putus di atasnya */
+}
+
+.social-sharing-section h3 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: var(--color-text-dark);
+}
+
+.social-buttons {
+    display: flex;
+    gap: 10px; /* Jarak antar tombol */
+    flex-wrap: wrap; /* Agar turun ke bawah jika layar sempit */
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Jarak antara ikon dan tulisan */
+    background-color: #fff; /* Background putih */
+    border: 1px solid #333; /* Border kotak hitam tipis */
+    padding: 8px 16px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: #333; /* Warna teks hitam */
+    cursor: pointer;
+    border-radius: 4px; /* Sudut sedikit melengkung (biar tidak kaku) */
+    transition: all 0.2s ease;
+}
+
+/* Efek saat mouse diarahkan (Hover) */
+.social-btn:hover {
+    background-color: #f9f9f9;
+    transform: translateY(-2px); /* Efek naik sedikit */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Ukuran Ikon */
+.social-btn i {
+    font-size: 1.2em; /* Sedikit lebih besar dari teks */
+}
+
+/* Dark Mode Support untuk Tombol Share */
+body.dark-mode .social-btn {
+    background-color: #2a2a2a;
+    border-color: #555;
+    color: #f0f0f0;
+}
+body.dark-mode .social-btn:hover {
+    background-color: #333;
 }
