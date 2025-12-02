@@ -753,6 +753,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // 21. Hamburger Menu Functionality
+    const initHamburgerMenu = () => {
+        const hamburgerBtn = document.getElementById('hamburger-menu');
+        const nav = document.querySelector('.header-center nav');
+
+        if (!hamburgerBtn || !nav) return;
+
+        // Toggle menu on hamburger button click
+        hamburgerBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburgerBtn.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburgerBtn.contains(e.target) && !nav.contains(e.target)) {
+                nav.classList.remove('active');
+                hamburgerBtn.classList.remove('active');
+            }
+        });
+
+        // Close menu when a link is clicked
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                hamburgerBtn.classList.remove('active');
+            });
+        });
+    };
+
 
 
     // Performance optimization: Debounce search input
@@ -791,6 +821,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAccessibility();
     initSearchHistory();
     initNewsletter();
+    initHamburgerMenu();
     updateFavoritesDisplay();
     updateCartDisplay();
 });

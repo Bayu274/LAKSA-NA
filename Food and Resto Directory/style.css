@@ -36,7 +36,7 @@ body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background-image: url("logo-rotated.png");
+    background-image: url("image/logo-rotated.png");
     background-repeat: repeat;
     background-size: 140px;      /* ukuran logo sedikit besar */
     background-position: center;
@@ -332,6 +332,14 @@ a {
     padding: 0 20px;
 }
 
+/* Custom styling for carousel images to make them smaller */
+#laksaCarousel .carousel-item img {
+    max-width: 50%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 .resto-hero-detail {
     text-align: center;
     margin-bottom: 30px;
@@ -513,6 +521,31 @@ footer {
    8. MEDIA QUERIES (RESPONSIVE DESIGN)
    ========================================= */
 
+/* Large Desktop (1200px ke bawah) */
+@media (max-width: 1200px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+    .home-banner h2 {
+        font-size: 2.5em;
+    }
+}
+
+/* Desktop (1024px ke bawah) */
+@media (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    .home-banner h2 {
+        font-size: 2.3em;
+    }
+    .main-header nav a {
+        font-size: 0.95em;
+    }
+}
+
 /* Tablet (768px ke bawah) */
 @media (max-width: 768px) {
     /* Navigasi */
@@ -520,14 +553,22 @@ footer {
         flex-direction: column;
         padding: 15px 20px;
     }
+    .main-header nav {
+        display: none;
+    }
     .main-header nav a {
         margin: 5px 10px;
         font-size: 0.9em;
     }
-    
+
+    /* Hamburger Menu */
+    .hamburger-menu {
+        display: flex;
+    }
+
     /* Direktori Grid */
     .grid-container {
-        grid-template-columns: repeat(2, 1fr); 
+        grid-template-columns: repeat(2, 1fr);
         padding: 30px 20px;
         gap: 20px;
     }
@@ -546,16 +587,36 @@ footer {
         grid-template-columns: 1fr;
         gap: 20px;
     }
+
+    /* Banner */
+    .home-banner h2 {
+        font-size: 2.1em;
+    }
+}
+
+/* Small Tablet (600px ke bawah) */
+@media (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .home-banner h2 {
+        font-size: 1.9em;
+    }
+    .main-header nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
 
 /* Mobile (480px ke bawah) */
 @media (max-width: 480px) {
     /* Direktori Grid */
     .grid-container {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
         padding: 20px 15px;
     }
-    
+
     /* Card */
     .resto-card.modern-card img {
         height: 180px;
@@ -569,10 +630,116 @@ footer {
         width: 100%;
         height: auto;
     }
-    
+
     /* Banner */
     .home-banner h2 {
         font-size: 2em;
+    }
+
+    /* Header */
+    .main-header {
+        padding: 10px 15px;
+    }
+    .main-header nav {
+        display: none;
+    }
+    .hamburger-menu {
+        display: flex;
+    }
+    .mobile-menu,
+    .mobile-menu-overlay {
+        display: block;
+    }
+}
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    padding: 5px;
+    background: none;
+    border: none;
+    z-index: 1001;
+}
+
+.hamburger-line {
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-text-light);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Navigation Menu */
+@media (max-width: 768px) {
+    .header-center nav {
+        position: fixed;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 100%);
+        background-color: var(--color-primary);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 50px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 999;
+        display: none;
+    }
+
+    .header-center nav.active {
+        display: flex;
+        transform: translateX(0);
+    }
+
+    .header-center nav a {
+        margin: 15px 0;
+        font-size: 1.2em;
+        padding: 10px 20px;
+        width: 200px;
+        text-align: center;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .header-center nav a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Small Mobile (320px ke bawah) */
+@media (max-width: 320px) {
+    .home-banner h2 {
+        font-size: 1.8em;
+    }
+    .main-header nav a {
+        font-size: 0.8em;
+        margin: 2px 3px;
+    }
+    .grid-container {
+        padding: 15px 10px;
+        gap: 15px;
+    }
+    .resto-card.modern-card img {
+        height: 150px;
     }
 }
 
@@ -835,7 +1002,7 @@ input:checked + .slider:before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('logo-rotated.png') repeat;
+    background: url('image/logo-rotated.png') repeat;
     opacity: 0.1;
     z-index: 1;
 }
