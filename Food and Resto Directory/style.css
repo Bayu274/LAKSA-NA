@@ -1113,3 +1113,162 @@ body.dark-mode .social-btn:hover { background-color: #333; }
         color: #000 !important; 
     }
 }
+/* =========================================
+   NEW UNIFIED SEARCH & FILTER STYLES
+   ========================================= */
+
+/* Wadah Utama Search Box */
+.unified-search-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-top: 25px;
+}
+
+/* Baris 1: Search Bar & Tombol Lokasi */
+.search-primary {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-with-icon {
+    position: relative;
+    flex-grow: 1;
+}
+
+.input-with-icon i.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.input-with-icon input {
+    width: 100%;
+    padding: 12px 15px 12px 45px; /* Padding kiri besar untuk ikon */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.input-with-icon input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+.btn-location {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    white-space: nowrap; /* Agar teks tidak turun baris */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+}
+
+.btn-location:hover {
+    background-color: #A0522D; /* Warna lebih gelap saat hover */
+}
+
+/* Baris 2: Filter Chips (Deretan Dropdown) */
+.filter-chips {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto; /* Bisa digeser samping di HP */
+    padding-bottom: 5px; /* Ruang untuk scrollbar jika ada */
+}
+
+/* Scrollbar halus untuk HP */
+.filter-chips::-webkit-scrollbar {
+    height: 4px;
+}
+.filter-chips::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.filter-chip-wrapper {
+    position: relative;
+    min-width: 160px; /* Lebar minimal agar tidak gepeng */
+}
+
+.filter-chip-wrapper i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-primary);
+    font-size: 0.9em;
+    z-index: 1;
+    pointer-events: none; /* Agar klik tembus ke select */
+}
+
+.filter-chip-wrapper select {
+    width: 100%;
+    appearance: none; /* Hilangkan panah bawaan browser */
+    -webkit-appearance: none;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 10px 30px 10px 35px; /* Kiri untuk ikon, Kanan untuk panah */
+    border-radius: 20px; /* Bentuk Pill/Lonjong */
+    font-size: 0.9rem;
+    color: #555;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    
+    /* Tambahkan panah custom di kanan */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23D2691E%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px top 50%;
+    background-size: 10px auto;
+}
+
+.filter-chip-wrapper select:hover,
+.filter-chip-wrapper select:focus {
+    background-color: #fff;
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(210, 105, 30, 0.2);
+}
+
+/* Dark Mode Support untuk Filter Baru */
+body.dark-mode .unified-search-box {
+    background: #2a2a2a;
+}
+body.dark-mode .input-with-icon input {
+    background-color: #333;
+    border-color: #444;
+    color: #fff;
+}
+body.dark-mode .filter-chip-wrapper select {
+    background-color: #333;
+    border-color: #444;
+    color: #eee;
+}
+body.dark-mode .filter-chip-wrapper i {
+    color: var(--color-primary); /* Ikon tetap warna tema */
+}
+
+/* Responsif untuk HP */
+@media (max-width: 600px) {
+    .search-primary {
+        flex-direction: column; /* Tombol lokasi turun ke bawah di HP */
+    }
+    .btn-location {
+        width: 100%;
+        padding: 12px;
+        justify-content: center;
+    }
+    .unified-search-box {
+        padding: 15px;
+    }
+}

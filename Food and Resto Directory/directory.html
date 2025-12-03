@@ -47,20 +47,60 @@
         </div>
     </header>
 
-    <main>
+<main>
         <section class="hero-search directory-intro">
-            <h2>Jelajahi Peta Rasa Laksa & Asia Tenggara 🌍</h2>
-            <p>Pilih dari spesialisasi Laksa kami atau temukan menu non-Laksa khas Asia Tenggara lainnya.</p>
-            <div class="search-controls">
-                <input type="text" id="search-bar" placeholder="Cari Laksa, Negara, atau Hidangan...">
-                <select id="category-filter">
-                    <option value="all">Semua Menu</option>
-                    <option value="laksa">Spesialisasi Laksa</option>
-                    <option value="indonesia">Indonesia (Non-Laksa)</option>
-                    <option value="malaysia">Malaysia/Singapura (Non-Laksa)</option>
-                    <option value="thailand">Thailand</option>
-                    <option value="vietnam">Vietnam</option> 
-                </select>
+            <div class="container" style="max-width: 1000px; margin: 0 auto;">
+                <h2>Jelajahi Peta Rasa Laksa & Asia Tenggara 🌍</h2>
+                <p>Temukan hidangan favorit Anda berdasarkan nama, negara, harga, atau selera pedas.</p>
+                
+                <div class="unified-search-box">
+                    
+                    <div class="search-primary">
+                        <div class="input-with-icon">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="search-bar" placeholder="Cari menu, negara, atau bahan...">
+                        </div>
+                        <button id="location-search-btn" class="btn-location" title="Cari di sekitar saya">
+                            <i class="fas fa-map-marker-alt"></i> Sekitar Saya
+                        </button>
+                    </div>
+
+                    <div class="filter-chips">
+                        
+                        <div class="filter-chip-wrapper">
+                            <i class="fas fa-globe"></i>
+                            <select id="category-filter">
+                                <option value="all">Semua Kategori</option>
+                                <option value="laksa">Spesialisasi Laksa</option>
+                                <option value="indonesia">Indonesia</option>
+                                <option value="malaysia">Malaysia/Singapura</option>
+                                <option value="thailand">Thailand</option>
+                                <option value="vietnam">Vietnam</option> 
+                            </select>
+                        </div>
+
+                        <div class="filter-chip-wrapper">
+                            <i class="fas fa-tag"></i>
+                            <select id="price-filter">
+                                <option value="all">Semua Harga</option>
+                                <option value="$">$ (Murah)</option>
+                                <option value="$$">$$ (Sedang)</option>
+                                <option value="$$$">$$$ (Mahal)</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-chip-wrapper">
+                            <i class="fas fa-pepper-hot"></i>
+                            <select id="spicy-filter">
+                                <option value="all">Semua Level Pedas</option>
+                                <option value="rendah">🌶️ Rendah</option>
+                                <option value="sedang">🌶️🌶️ Sedang</option>
+                                <option value="tinggi">🌶️🌶️🌶️ Tinggi</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -77,10 +117,10 @@
                         <span class="price-range"><i class="fas fa-money-bill-wave"></i> $$</span>
                     </div>
                     <div class="card-actions">
-                        <button class="favorite-btn" data-item-id="katong-laksa" title="Tambah ke Favorit">🤍</button>
-                        <button class="add-to-cart-btn" data-item-id="katong-laksa" data-item-name="Katong Laksa" data-item-price="55000" title="Tambah ke Keranjang">🛒</button>
+                        <button class="favorite-btn" data-item-id="katong-laksa">🤍</button>
+                        <button class="add-to-cart-btn" data-item-id="katong-laksa" data-item-name="Katong Laksa" data-item-price="55000">🛒</button>
                     </div>
-                    <a href="detail-katong.html" class="detail-link">Lihat Detail Menu</a>
+                    <a href="detail-katong.html" class="detail-link">Lihat Detail</a>
                 </div>
             </article>
             
@@ -95,8 +135,8 @@
                         <span class="price-range"><i class="fas fa-money-bill-wave"></i> $</span>
                     </div>
                     <div class="card-actions">
-                        <button class="favorite-btn" data-item-id="nasi-lemak" title="Tambah ke Favorit">🤍</button>
-                        <button class="add-to-cart-btn" data-item-id="nasi-lemak" data-item-name="Nasi Lemak" data-item-price="55000" title="Tambah ke Keranjang">🛒</button>
+                        <button class="favorite-btn" data-item-id="nasi-lemak">🤍</button>
+                        <button class="add-to-cart-btn" data-item-id="nasi-lemak" data-item-name="Nasi Lemak" data-item-price="55000">🛒</button>
                     </div>
                     <a href="nasi-lemak.html" class="detail-link">Lihat Detail Menu</a>
                 </div>
@@ -113,8 +153,8 @@
                         <span class="price-range"><i class="fas fa-money-bill-wave"></i> $$</span>
                     </div>
                     <div class="card-actions">
-                        <button class="favorite-btn" data-item-id="pad-thai" title="Tambah ke Favorit">🤍</button>
-                        <button class="add-to-cart-btn" data-item-id="pad-thai" data-item-name="Pad Thai" data-item-price="45000" title="Tambah ke Keranjang">🛒</button>
+                        <button class="favorite-btn" data-item-id="pad-thai">🤍</button>
+                        <button class="add-to-cart-btn" data-item-id="pad-thai" data-item-name="Pad Thai" data-item-price="45000">🛒</button>
                     </div>
                     <a href="pad-thai.html" class="detail-link">Lihat Detail Menu</a>
                 </div>
@@ -131,8 +171,8 @@
                         <span class="price-range"><i class="fas fa-money-bill-wave"></i> $</span>
                     </div>
                      <div class="card-actions">
-                        <button class="favorite-btn" data-item-id="laksa-bogor" title="Tambah ke Favorit">🤍</button>
-                        <button class="add-to-cart-btn" data-item-id="laksa-bogor" data-item-name="laksa Bogor" data-item-price="45000" title="Tambah ke Keranjang">🛒</button>
+                        <button class="favorite-btn" data-item-id="laksa-bogor">🤍</button>
+                        <button class="add-to-cart-btn" data-item-id="laksa-bogor" data-item-name="laksa Bogor" data-item-price="45000">🛒</button>
                     </div>
                     <a href="laksa-bogor.html" class="detail-link">Lihat Detail Menu</a>
                 </div>
@@ -149,8 +189,8 @@
                         <span class="price-range"><i class="fas fa-money-bill-wave"></i> $$</span>
                     </div>
                     <div class="card-actions">
-                        <button class="favorite-btn" data-item-id="sate-lilit" title="Tambah ke Favorit">🤍</button>
-                        <button class="add-to-cart-btn" data-item-id="sate-lilit" data-item-name="Sate Lilit Bali" data-item-price="50000" title="Tambah ke Keranjang">🛒</button>
+                        <button class="favorite-btn" data-item-id="sate-lilit">🤍</button>
+                        <button class="add-to-cart-btn" data-item-id="sate-lilit" data-item-name="Sate Lilit Bali" data-item-price="50000">🛒</button>
                     </div>
                     <a href="sate-lilit.html" class="detail-link">Lihat Detail Menu</a>
                 </div>
@@ -167,56 +207,20 @@
                     <span class="price-range"><i class="fas fa-money-bill-wave"></i> $$</span>
                 </div>
                  <div class="card-actions">
-                        <button class="favorite-btn" data-item-id="pho-bo" title="Tambah ke Favorit">🤍</button>
-                        <button class="add-to-cart-btn" data-item-id="pho-bo" data-item-name="Pho Bo" data-item-price="45000" title="Tambah ke Keranjang">🛒</button>
+                        <button class="favorite-btn" data-item-id="pho-bo">🤍</button>
+                        <button class="add-to-cart-btn" data-item-id="pho-bo" data-item-name="Pho Bo" data-item-price="45000">🛒</button>
                     </div>
                  <a href="pho-bo.html" class="detail-link">Lihat Detail Menu</a>
             </div>
             </article>
+
         </section>
 
         <section class="pagination-section">
             <nav aria-label="Directory pagination">
-                <ul class="pagination justify-content-center" id="pagination-controls">
-                    <!-- Pagination buttons will be generated by JavaScript -->
-                </ul>
+                <ul class="pagination justify-content-center" id="pagination-controls"></ul>
             </nav>
         </section>
-
-        <section class="advanced-filters">
-            <h3>Filter Lanjutan</h3>
-            <div class="filter-controls">
-                <div class="filter-group">
-                    <label for="price-filter">Rentang Harga:</label>
-                    <select id="price-filter">
-                        <option value="all">Semua Harga</option>
-                        <option value="$">$ (Murah)</option>
-                        <option value="$$">$$ (Sedang)</option>
-                        <option value="$$$">$$$ (Mahal)</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="spicy-filter">Tingkat Kepedasan:</label>
-                    <select id="spicy-filter">
-                        <option value="all">Semua Tingkat</option>
-                        <option value="rendah">Rendah</option>
-                        <option value="sedang">Sedang</option>
-                        <option value="tinggi">Tinggi</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="dietary-filter">Restriksi Diet:</label>
-                    <select id="dietary-filter">
-                        <option value="all">Semua</option>
-                        <option value="vegetarian">Vegetarian</option>
-                        <option value="vegan">Vegan</option>
-                        <option value="halal">Halal</option>
-                    </select>
-                </div>
-                <button id="location-search-btn" class="btn-primary">Cari Berdasarkan Lokasi</button>
-            </div>
-        </section>
-
     </main>
 
     <footer>
