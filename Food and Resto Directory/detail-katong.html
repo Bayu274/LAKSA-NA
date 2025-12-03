@@ -13,19 +13,25 @@
     
    <header class="main-header">
         <div class="header-left">
-            <a href="profile.html" style="text-decoration: none; color: inherit;">
-                <img src="image/logo.png" alt="Logo LAKSA-NA" width="50" height="50">
-                <h1 class="logo">LAKSA-NA</h1>
-            </a>
+            <img src="image/logo.png" alt="Logo LAKSA-NA" width="50" height="50">
+            <h1 class="logo">LAKSA-NA</h1>
         </div>
         <div class="header-center">
             <nav>
-                <a href="index.html">Home</a>
+                <a href="index.html" class="active">Home</a>
                 <a href="directory.html">Direktori Menu</a>
                 <a href="articles.html">Kuliner Asia</a>
+                <a href="recipes.html">Resep</a>
                 <a href="about.html">Tentang</a>
                 <a href="contact.html">Kontak Kami</a>
                 <a href="faq.html">FAQ</a>
+                <div class="theme-toggle" style="margin-top: 20px;">
+                    <label class="switch">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">Dark Mode</span>
+                </div>
             </nav>
         </div>
         <div class="header-right">
@@ -33,18 +39,11 @@
                 <i class="fas fa-shopping-cart"></i>
                 <span id="cart-count">0</span>
             </div>
-             <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle navigation menu">
+            <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle navigation menu">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
-            <div class="theme-toggle">
-                <label class="switch">
-                    <input type="checkbox" id="dark-mode-toggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="toggle-label">Dark Mode</span>
-            </div>
         </div>
     </header>
 

@@ -837,7 +837,18 @@ input:checked + .slider:before { transform: translateX(26px); }
     color: var(--color-text-light);
     font-weight: 500;
 }
+/* ... kode switch yang lama ... */
 
+/* FIX WARNA TOGGLE SAAT DARK MODE (Agar tidak nabrak background kuning) */
+body.dark-mode input:checked + .slider {
+    background-color: #333333; /* Ubah jadi Hitam/Gelap */
+    /* Atau gunakan #D2691E jika ingin warna Oranye */
+}
+body.dark-mode .toggle-label {
+    color: #000000 !important; /* Warna Hitam Pekat */
+    font-weight: 600 !important; /* Sedikit tebal agar jelas */
+    opacity: 1 !important;
+}
 /* FAQ Styles */
 .faq-hero {
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
