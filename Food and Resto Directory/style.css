@@ -191,11 +191,11 @@ a {
 
 /* Dark Mode Navigasi */
 body.dark-mode .main-header nav a {
-    color: #000000 !important;
+    color: #ffffff !important;
     font-weight: 600;
 }
 body.dark-mode .main-header nav {
-    background-color: #FFD700 !important; /* Kuning Emas */
+    background-color: transparent !important;
 }
 
 /* Header Kanan (Cart, Toggle) */
