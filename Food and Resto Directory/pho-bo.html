@@ -19,23 +19,20 @@
         </div>
         <div class="header-center">
             <nav>
-                <a href="index.html" class="active">Home</a>
-                <a href="directory.html">Direktori Menu</a>
-                <a href="articles.html">Kuliner Asia</a>
+                <a href="index.html" >Home</a>
+                <a href="directory.html"class="active">Menu</a>
                 <a href="recipes.html">Resep</a>
-                <a href="about.html">Tentang</a>
                 <a href="contact.html">Kontak Kami</a>
-                <a href="faq.html">FAQ</a>
-                <div class="theme-toggle" style="margin-top: 20px;">
-                    <label class="switch">
-                        <input type="checkbox" id="dark-mode-toggle">
-                        <span class="slider"></span>
-                    </label>
-                    <span class="toggle-label">Dark Mode</span>
-                </div>
             </nav>
         </div>
         <div class="header-right">
+            <div class="theme-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">Dark Mode</span>
+            </div>
             <div class="cart-icon">
                 <i class="fas fa-shopping-cart"></i>
                 <span id="cart-count">0</span>
@@ -173,6 +170,11 @@
     </main>
 
     <footer>
+        <div class="footer-links" style="margin-bottom: 10px;">
+            <a href="about.html" style="color: white; margin: 0 10px;">Tentang Kami</a> |
+            <a href="articles.html" style="color: white; margin: 0 10px;">Artikel</a> |
+            <a href="faq.html" style="color: white; margin: 0 10px;">FAQ</a>
+        </div>
         <p>&copy; 2025 <strong>Laksa-Na Resto</strong>.</p>
     </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
